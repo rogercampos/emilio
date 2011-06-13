@@ -20,13 +20,13 @@ module Emilio
         @body = ic.iconv(email.body.to_s)
       end
       @subject = ic.iconv(email.subject)
-      Emilio.logger.info("Parsed email [#{email.subject}] from [#{email.from}]")
+      Emilio.logger.info("Parsed email [#{@subject}] from [#{@sender}]")
 
-      parse_email
+      parse
     end
 
-    protected
-    def parse_email
+  protected
+    def parse
     end
   end
 end
