@@ -24,6 +24,9 @@ module Emilio
   # parse emails with that label (equivalent mailbox name).
   mattr_accessor :mailbox
 
+  # Which sheduler use, if any
+  mattr_accessor :scheduler
+
   # Settings of your IMAP account
   mattr_accessor :host
   mattr_accessor :port
@@ -36,3 +39,6 @@ module Emilio
     yield self
   end
 end
+
+Dir["#{File.dirname(__FILE__)}/emilio/schedulers/*.rb"].each{|f| require f}
+
