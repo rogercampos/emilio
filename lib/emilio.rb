@@ -26,6 +26,9 @@ module Emilio
 
   # Which sheduler use, if any
   mattr_accessor :scheduler
+  # Amount of time between each run, when a scheduler is used. Accepts 1.hour
+  # and this kind of sugar syntax
+  mattr_accessor :run_every
 
   # Settings of your IMAP account
   mattr_accessor :host
@@ -34,6 +37,7 @@ module Emilio
   mattr_accessor :password
 
   @@mailbox = "Inbox"
+  @@run_every = 10.minutes
 
   def self.configure
     yield self
