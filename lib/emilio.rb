@@ -44,5 +44,6 @@ module Emilio
   end
 end
 
+require 'emilio/scheduler_base'
 Dir["#{File.dirname(__FILE__)}/emilio/schedulers/*.rb"].each{|f| require f}
 
