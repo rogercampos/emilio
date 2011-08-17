@@ -7,12 +7,12 @@ module Emilio
       @sender = email.from.to_s
 
       if email.multipart?
+        ic = Iconv.new('utf-8', email.text_part.charset)
+
         if email.html_part.present?
-          ic = Iconv.new('utf-8', email.html_part.charset)
-          @body = ic.iconv(email.html_part.body.to_s)
+          @body = Iconv.conv('utf-8', email.html_part.charset, email.html_part.body.to_s)
           @html = true
         else
-          ic = Iconv.new('utf-8', email.text_part.charset)
           @body = ic.iconv(email.text_part.body.to_s)
         end
       else
