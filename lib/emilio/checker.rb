@@ -40,7 +40,8 @@ module Emilio
       rescue Net::IMAP::ByeResponseError => e
         Emilio.logger.error("Bye response: #{e}")
       rescue => e
-        Emilio.logger.error("Error: #{e}")
+        Emilio.logger.error(e.message)
+        Emilio.logger.error(e.backtrace.join("\n"))
       end
 
       Time::DATE_FORMATS[:default] = old_time_format
