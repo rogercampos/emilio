@@ -2,6 +2,7 @@ require 'emilio/version'
 
 require 'net/imap'
 require 'net/http'
+require 'iconv'
 
 require 'emilio/logger'
 require 'emilio/railtie' if defined?(Rails)
