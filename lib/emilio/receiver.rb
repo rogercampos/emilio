@@ -6,20 +6,19 @@ module Emilio
       @attachments = email.attachments
       @sender = email.from.to_s
 
-      if email.multipart?
-        ic = Iconv.new('utf-8', email.text_part.charset)
-
+      @body = if email.multipart?
         if email.html_part.present?
-          @body = Iconv.conv('utf-8', email.html_part.charset, email.html_part.body.to_s)
           @html = true
+          email.html_part
         else
-          @body = ic.iconv(email.text_part.body.to_s)
+          email.text_part
         end
       else
         ic = Iconv.new('utf-8', email.charset)
-        @body = ic.iconv(email.body.to_s)
-      end
-      @subject = ic.iconv(email.subject)
+        email
+      end.body.to_s.encode("utf-8")
+
+      @subject = email.subject.encode
       Emilio.logger.info("Parsed email [#{@subject}] from [#{@sender}]")
 
       parse
